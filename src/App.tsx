@@ -1,18 +1,13 @@
 import { useState, useCallback, useRef } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
 import Button from '@material-ui/core/Button';
+import MessageItem from './components/Message';
 import faker from "faker";
 
-const START_INDEX = 10000;
-const PAGE_SIZE = 20;
+const START_INDEX = 100000;
+const PAGE_SIZE = 100;
 let id = 0;
 
 type Message = {
@@ -107,26 +102,8 @@ function App() {
           data={messages}
           startReached={prependItems}
           isScrolling={(scrolling) => console.log("is scrolling", scrolling)}
-          itemContent={(_index, message) => {
-            return (
-              <>
-              <div style={{marginLeft: '1rem', display: 'flex', alignItems: 'center'}}>
-                <Avatar style={{marginRight: '1rem'}} alt={message.initials}>{message.initials}</Avatar>
-                <span>{`${message.name} - ${message.date}`}</span>
-                <IconButton aria-label="delete" onClick={() => removeMessage(message)}>
-                  <DeleteIcon fontSize="small" />
-                </IconButton>
-                <IconButton aria-label="edit" onClick={() => editMessage(message)}>
-                  <EditIcon fontSize="small" />
-                </IconButton>
-              </div>
-                <ListItem alignItems="flex-start">
-                  <ListItemText
-                    secondary={<span>{message.longContent}</span>}
-                  />
-                </ListItem>
-              </>
-            );
+          itemContent={(index: number, message: Message) => {
+            return (<MessageItem index={index} message={message} removeMessage={removeMessage} editMessage={editMessage}></MessageItem>);
           }}
           atBottomStateChange={(atBottom) => {
             console.log("At bottom", atBottom);
