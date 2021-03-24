@@ -26,26 +26,24 @@ type Props = {
 export default class Message extends Component<Props> {
 
   render() {
-    console.log("render", this.props.index);
-
     return (
-      <>
-      <div style={{marginLeft: '1rem', display: 'flex', alignItems: 'center'}}>
-        <Avatar style={{marginRight: '1rem'}} alt={this.props.message.initials}>{this.props.message.initials}</Avatar>
-        <span>{`${this.props.message.name} - ${this.props.message.date}`}</span>
-        <IconButton aria-label="delete" onClick={() => this.props.removeMessage(this.props.message)}>
-          <DeleteIcon fontSize="small" />
-        </IconButton>
-        <IconButton aria-label="edit" onClick={() => this.props.editMessage(this.props.message)}>
-          <EditIcon fontSize="small" />
-        </IconButton>
-      </div>
+      <div className="message" style={{minHeight: "100px"}}>
+        <div style={{marginLeft: '1rem', display: 'flex', alignItems: 'center'}}>
+          <Avatar style={{marginRight: '1rem'}} alt={this.props.message.initials}>{this.props.message.initials}</Avatar>
+          <span>{`${this.props.message.name} - ${this.props.message.date}`}</span>
+          <IconButton aria-label="delete" onClick={() => this.props.removeMessage(this.props.message)}>
+            <DeleteIcon fontSize="small" />
+          </IconButton>
+          <IconButton aria-label="edit" onClick={() => this.props.editMessage(this.props.message)}>
+            <EditIcon fontSize="small" />
+          </IconButton>
+        </div>
         <ListItem alignItems="flex-start">
           <ListItemText
             secondary={<span>{this.props.message.longContent}</span>}
-          />
+            />
         </ListItem>
-      </>
+      </div>
     );
   }
 };
